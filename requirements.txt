@@ -6,5 +6,4 @@ plotly
 datetime
 streamlit                 
 yfinance 
-requests
-urllib
+
