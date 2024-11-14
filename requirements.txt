@@ -6,4 +6,4 @@ plotly
 datetime
 streamlit                 
 yfinance 
-
+tabulate
