@@ -2,8 +2,7 @@ numpy
 pandas                
 matplotlib 
 seaborn    
-plotly.express          
-plotly.graph_objects
+plotly
 datetime
 streamlit                 
 yfinance 
