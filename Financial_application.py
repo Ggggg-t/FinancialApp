@@ -105,10 +105,10 @@ class YFinance:
 
 
 
-st.set_page_config(page_title="FINANCIAL DASHBOARD ",page_icon=" 📈",layout="wide")
+st.set_page_config(page_title="S&P 500 Financial Dashboard ",page_icon=" 📈",layout="wide")
 
 st.markdown("""
-    <h1 style='text-align: center; color: white;'>FINANCIAL DASHBOARD 📈 </h1>
+    <h1 style='text-align: center; color: white;'>S&P 500 Financial Dashboard 📈 </h1>
     <p style='text-align: center; color: white; font-size: 15px;'>DATA SOURCE: <a href='https://finance.yahoo.com' target='_blank'>Yahoo Finance</a></p>
 """, unsafe_allow_html=True)  
 
