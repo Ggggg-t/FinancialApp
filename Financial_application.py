@@ -539,7 +539,7 @@ with tabs[4]:
     default_symbols = ["AAPL", "TSLA"]
 
     # User selects stock symbols from the SP500 list
-    options = st.multiselect("Select Stock Symbols", sp500_stocks, default=default_symbols)
+    options = st.multiselect("Select Stock", sp500_stocks, default=default_symbols)
     stock_symbols_list = [symbol.strip().upper() for symbol in options]
 
     # Fetch stock data for the selected symbols
