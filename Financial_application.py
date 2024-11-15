@@ -468,7 +468,7 @@ with tabs[3]:  # This refers to the Monte Carlo Simulation tab
     with col2:
         time_horizon = st.radio("Time Horizon (days)", [30, 60, 90], key="time_horizon")
     
-# Calculate daily returns and standard deviation
+    # Calculate daily returns and standard deviation
     daily_returns = close_price.pct_change().dropna()
     mean_return = daily_returns.mean()
     daily_volatility = daily_returns.std()
@@ -534,10 +534,12 @@ with tabs[3]:  # This refers to the Monte Carlo Simulation tab
     
 # Content for Tab 5
 with tabs[4]: 
-     # Define default stock symbols
-    default_symbols = ["AAPL", "MSFT"]
 
-    options = st.multiselect("Select Stock Symbols ",sp500_stocks,default=default_symbols)
+    # Default selected stock symbols
+    default_symbols = ["AAPL", "TSLA"]
+
+    # User selects stock symbols from the SP500 list
+    options = st.multiselect("Select Stock Symbols", sp500_stocks, default=default_symbols)
     stock_symbols_list = [symbol.strip().upper() for symbol in options]
 
     # Fetch stock data for the selected symbols
@@ -550,15 +552,13 @@ with tabs[4]:
     stock_prices_df = pd.DataFrame(stock_data)
     st.line_chart(stock_prices_df)
 
-    stock_symbols_to_compare = stock_symbols_list[:2]
-
-    # Check if there are at least two stocks selected
-    if len(stock_symbols_to_compare) < 2:
+    # Check if at least two stocks are selected
+    if len(stock_symbols_list) < 2:
         st.warning("Please select at least two stocks for side-by-side comparison.")
     else:
         # Fetch detailed financial metrics for each selected stock
         metrics_data = {}
-        for symbol in stock_symbols_to_compare:
+        for symbol in stock_symbols_list:
             stock = yf.Ticker(symbol)
             info = stock.info
             metrics_data[symbol] = {
@@ -573,7 +573,7 @@ with tabs[4]:
                 "52-Week Low (USD)": info.get('fiftyTwoWeekLow', 'N/A'),
                 "5-Year Monthly Beta": info.get('beta', 'N/A')
             }
-        
+
         # Convert to a DataFrame for raw data
         metrics_df = pd.DataFrame(metrics_data)
 
@@ -585,7 +585,7 @@ with tabs[4]:
             # Identify the max value for each row (numeric values only)
             numeric_values = [value for value in row if isinstance(value, (int, float))]
             col_max = max(numeric_values) if numeric_values else None
-            
+
             # Format and bold the larger value
             for col in display_df.columns:
                 value = row[col]
@@ -594,10 +594,6 @@ with tabs[4]:
                 else:
                     display_df.at[index, col] = f"{value:,.2f}" if isinstance(value, (int, float)) else f"{value}"
 
-
         # Display the formatted DataFrame in Streamlit
-        st.subheader("Financial Comparison")
+        st.subheader(f"Financial Comparison: {', '.join(stock_symbols_list)}")
         st.write(display_df.to_markdown(), unsafe_allow_html=True)
-
-
-    
